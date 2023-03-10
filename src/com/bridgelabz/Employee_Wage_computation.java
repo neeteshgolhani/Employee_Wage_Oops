@@ -5,25 +5,44 @@ public class Employee_Wage_computation {
         System.out.println("welcome to employee wage computational problems" );
         int wagePerHour = 10; // $10 per hour
         int workingDaysPerMonth = 20; // 20 working days per month
+        int maxWorkingHours = 100; // maximum working hours for the month
+
         // create a random number generator
         Random random = new Random();
-        // generate a random number between 0 and 2
-        int randomNumber = random.nextInt(3);
+        int totalWorkingDays = 0;
+        int totalWorkingHours = 0;
+        int wage = 0;
 
-        // check if the employee is full-time or part-time
-        if (randomNumber == 0) { // full-time employee
-            int workingHoursPerDay = 8; // 8 hours per day
+        // keep working until either the maximum working hours or days is reached
+        while (totalWorkingDays < workingDaysPerMonth && totalWorkingHours < maxWorkingHours) {
+            int randomNumber = random.nextInt(2);
 
-            int wagePerMonth = wagePerHour * workingHoursPerDay * workingDaysPerMonth;
+            // check if the employee is full-time or part-time
+            if (randomNumber == 0) { // full-time employee
+                int workingHoursPerDay = 8; // 8 hours per day
 
-            System.out.println("Full-time employee wage per month: $" + wagePerMonth);
-        } else { // part-time employee
-            int workingHoursPerDay = 4; // 4 hours per day
+                // check if the employee can work a full day
+                if (totalWorkingHours + workingHoursPerDay <= maxWorkingHours) {
+                    wage += wagePerHour * workingHoursPerDay;
+                    totalWorkingHours += workingHoursPerDay;
+                    totalWorkingDays++;
+                } else {
+                    break;
+                }
+            } else { // part-time employee
+                int workingHoursPerDay = 4; // 4 hours per day
 
-            int wagePerMonth = wagePerHour * workingHoursPerDay * workingDaysPerMonth;
-
-            System.out.println("Part-time employee wage per month: $" + wagePerMonth);
-
+                // check if the employee can work a full day
+                if (totalWorkingHours + workingHoursPerDay <= maxWorkingHours) {
+                    wage += wagePerHour * workingHoursPerDay;
+                    totalWorkingHours += workingHoursPerDay;
+                    totalWorkingDays++;
+                } else {
+                    break;
+                }
+            }
         }
+
+        System.out.println("Wage for the month: $" + wage);
     }
 }
